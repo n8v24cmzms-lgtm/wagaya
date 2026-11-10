@@ -1,0 +1,399 @@
+/* わが家の食材手帳 — ベージュ系ナチュラル・常に明るい背景（ダークモードなし）
+   キャッチーさ（丸み・温かさ）は残しつつ、余白・影・文字の組み方を整えた
+   スタイリッシュ寄りの仕上げ。背景は常に #faf6ef 系の明るいベージュ。 */
+:root {
+  color-scheme: light only;
+  --bg: #faf6ef;
+  --card: #fffdf8;
+  --cream: #f3e9d7;
+  --cream-2: #ede0c9;
+  --ink: #4a3b2c;
+  --ink-soft: #8a7663;
+  --accent: #b08654;
+  --accent-deep: #8a6d4f;
+  --accent-soft: #f0e3cd;
+  --gold: #d9a441;
+  --green: #7d8f5f;
+  --orange: #c97b3f;
+  --red: #b8543f;
+  --line: #e7dbc4;
+  --line-soft: #efe6d2;
+  --shadow: 0 1px 2px rgba(122, 94, 58, 0.05), 0 8px 24px rgba(122, 94, 58, 0.07);
+  --shadow-lift: 0 2px 4px rgba(122, 94, 58, 0.06), 0 12px 32px rgba(122, 94, 58, 0.10);
+  --radius: 18px;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); }
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, .btn, .tabs button, .bottom-nav button, .code-text {
+  font-family: "Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Noto Sans JP", sans-serif;
+}
+.grow { flex: 1; min-width: 0; }
+
+/* ---------- ヘッダー ---------- */
+.app-header {
+  background: rgba(250, 246, 239, 0.88);
+  backdrop-filter: blur(12px) saturate(1.15); -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  padding: 12px 18px 8px;
+  position: sticky; top: 0; z-index: 20;
+}
+.app-header::after {
+  content: ""; display: block; max-width: 640px; margin: 8px auto 0; height: 1px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--gold) 50%, var(--accent) 70%, transparent);
+  opacity: 0.45;
+}
+.brand { display: flex; gap: 12px; align-items: center; max-width: 640px; margin: 0 auto; }
+.brand-icon { border-radius: 12px; box-shadow: var(--shadow); }
+.brand h1 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: 0.10em; }
+.brand p { margin: 3px 0 0; font-size: 12px; letter-spacing: 0.06em; color: var(--ink-soft); }
+.demo-banner, .join-banner {
+  max-width: 640px; margin: 8px auto; padding: 10px 14px; border-radius: 12px;
+  font-size: 13px; line-height: 1.6;
+}
+.demo-banner { background: #fdf3d8; border: 1px dashed #d9a94f; color: #6b5518; }
+.join-banner { background: #eef2e2; border: 1px solid #b9c48f; color: #42501f; }
+.app-main { max-width: 640px; margin: 0 auto; padding: 12px 14px 122px; }
+.loading { text-align: center; color: var(--ink-soft); padding: 40px 0; }
+
+/* ---------- カード・見出し ---------- */
+.card {
+  background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 18px; margin-bottom: 16px;
+}
+.card h2 {
+  margin: 0 0 12px; font-size: 16px; font-weight: 800; letter-spacing: 0.05em;
+  position: relative; padding-left: 13px;
+}
+.card h2::before {
+  content: ""; position: absolute; left: 0; top: 3px; bottom: 3px; width: 3.5px;
+  border-radius: 3px; background: linear-gradient(180deg, var(--gold), var(--accent));
+}
+.card h3 { margin: 16px 0 8px; font-size: 14px; letter-spacing: 0.05em; color: var(--accent-deep); }
+.hint { font-size: 12px; color: var(--ink-soft); line-height: 1.7; letter-spacing: 0.02em; }
+
+/* ---------- フォーム ---------- */
+label { display: block; font-size: 12.5px; margin: 12px 0 5px; color: var(--ink-soft); letter-spacing: 0.06em; }
+input, select {
+  width: 100%; padding: 12px 13px; font-size: 16px; color: var(--ink);
+  background: #fffefa; border: 1.5px solid var(--line); border-radius: 12px; outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(176, 134, 84, 0.16); }
+input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.check-line { display: flex; align-items: center; gap: 8px; font-size: 14px; margin-top: 14px; color: var(--ink); letter-spacing: 0; }
+.check-line input { width: 20px; }
+
+/* 分数クイック選択（玉単位） */
+.frac-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.frac-label { font-size: 12.5px; color: var(--ink-soft); letter-spacing: 0.05em; }
+.frac-chip {
+  min-height: 40px; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  border: 1.5px solid var(--accent); background: var(--accent-soft); color: var(--accent-deep);
+  font-size: 14px; font-weight: 700; font-family: inherit; transition: transform 0.1s ease, background 0.15s ease;
+}
+.frac-chip:active { transform: scale(0.96); background: var(--cream-2); }
+
+/* ---------- ボタン ---------- */
+.btn {
+  display: inline-block; border: none; cursor: pointer; border-radius: 999px;
+  padding: 12px 22px; font-size: 15px; font-weight: 700; letter-spacing: 0.05em; font-family: inherit;
+  background: linear-gradient(180deg, #bb9160, var(--accent)); color: #fff;
+  box-shadow: 0 4px 14px rgba(138, 109, 79, 0.28);
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+.btn:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(138, 109, 79, 0.24); }
+.btn.secondary { background: var(--accent-soft); color: var(--accent-deep); box-shadow: none; border: 1px solid var(--line); }
+.btn.ghost { background: transparent; color: var(--accent-deep); box-shadow: none; border: 1.5px solid var(--line); }
+.btn.danger { background: #f3ddd4; color: var(--red); box-shadow: none; }
+.btn.small { padding: 8px 15px; font-size: 13px; }
+.btn.wide { width: 100%; margin-top: 16px; }
+.tabs {
+  display: flex; gap: 4px; margin-bottom: 12px; padding: 4px;
+  background: var(--cream); border: 1px solid var(--line-soft); border-radius: 999px;
+}
+.tabs button {
+  flex: 1; min-height: 44px; padding: 9px 4px; border-radius: 999px; border: none;
+  background: transparent; color: var(--ink-soft); font-size: 14px; font-weight: 700; letter-spacing: 0.03em;
+  cursor: pointer; font-family: inherit; transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+.tabs button.active { background: var(--card); color: var(--accent-deep); box-shadow: 0 1px 3px rgba(122, 94, 58, 0.10), 0 4px 12px rgba(122, 94, 58, 0.08); }
+.error {
+  background: #f9e8e0; border: 1px solid #e0b49d; color: var(--red);
+  padding: 10px 12px; border-radius: 10px; font-size: 13px; margin-top: 10px; line-height: 1.6;
+}
+
+/* ---------- 在庫 ---------- */
+.notice-item { font-size: 14px; padding: 7px 0; border-bottom: 1px dashed var(--line-soft); }
+.notice-item:last-child { border-bottom: none; }
+.group-title {
+  font-size: 14.5px; font-weight: 800; letter-spacing: 0.10em; color: var(--accent-deep);
+  margin: 22px 2px 10px; display: flex; align-items: center; gap: 9px;
+}
+.group-title::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+.group-title .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.dot.soon { background: var(--red); } .dot.week { background: var(--orange); } .dot.later { background: var(--green); }
+.item-card { display: flex; gap: 10px; align-items: center; box-shadow: var(--shadow); }
+.item-photo { width: 52px; height: 52px; border-radius: 14px; object-fit: cover; border: 1px solid var(--line-soft); }
+.item-main { flex: 1; min-width: 0; }
+.item-name { font-weight: 700; font-size: 16px; letter-spacing: 0.02em; }
+.item-name .star { color: var(--gold); }
+.item-meta { font-size: 12px; color: var(--ink-soft); margin-top: 3px; line-height: 1.6; }
+.chip {
+  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 2px 9px; border-radius: 999px;
+  background: rgba(247, 239, 221, 0.75); border: 1px solid #eee0c2; color: var(--accent-deep); margin-right: 4px;
+}
+.chip.warn { background: #f9e0d2; border-color: #efcbb2; color: var(--red); }
+.chip.soon-chip { background: #f9e0d2; border-color: #efcbb2; color: var(--red); }
+.qty-ctrl { display: flex; align-items: center; gap: 6px; }
+.qty-btn {
+  width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--line);
+  background: linear-gradient(180deg, #f8efdc, var(--cream)); color: var(--accent-deep);
+  font-size: 18px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: transform 0.1s ease;
+}
+.qty-btn:active { transform: scale(0.94); }
+.qty-num { min-width: 56px; text-align: center; font-weight: 800; font-size: 15.5px; letter-spacing: 0.02em; }
+.icon-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 8px; min-width: 40px; min-height: 40px; }
+
+/* ---------- 食材アイコン ---------- */
+.food-icon { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex: none; vertical-align: -7px; margin-right: 5px; }
+.food-icon svg { width: 100%; height: 100%; }
+.food-icon.tile {
+  width: 54px; height: 54px; margin-right: 0; vertical-align: middle;
+  background: radial-gradient(circle at 30% 22%, #fffdf4 0%, #f9edd3 58%, #f3e2c2 100%);
+  border: 1.5px solid #ecd9b4; border-radius: 19px;
+  box-shadow: 0 3px 9px rgba(176, 141, 95, 0.20), inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 0 -3px 6px rgba(217, 164, 65, 0.12);
+}
+.food-icon.tile svg { width: 39px; height: 39px; }
+.name-preview { display: flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 12.5px; color: var(--ink-soft); letter-spacing: 0.03em; }
+.name-preview .food-icon { width: 32px; height: 32px; }
+.recipe-ing .food-icon { width: 22px; height: 22px; vertical-align: -5px; margin-right: 3px; }
+
+/* ---------- 食材図鑑 ---------- */
+.zukan-progress { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; font-size: 13px; color: var(--ink-soft); }
+.zukan-count { font-size: 24px; font-weight: 800; color: var(--accent-deep); letter-spacing: 0.03em; }
+.zukan-bar { height: 8px; border-radius: 999px; background: var(--cream); border: 1px solid var(--line-soft); margin-top: 10px; overflow: hidden; }
+.zukan-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--gold), var(--accent)); transition: width 0.4s ease; }
+.zukan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; margin-bottom: 6px; }
+.zukan-cell {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: 88px; padding: 9px 4px 7px; border-radius: 16px; cursor: pointer; font-family: inherit;
+  background: var(--card); border: 1px solid var(--line-soft); box-shadow: var(--shadow);
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+.zukan-cell:active { transform: scale(0.96); }
+.zukan-cell .food-icon {
+  width: 46px; height: 46px; margin-right: 0; vertical-align: middle;
+  background: radial-gradient(circle at 32% 24%, #fffdf4 0%, #f9edd3 62%, #f4e3c3 100%);
+  border-radius: 999px; box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.9), 0 2px 6px rgba(176, 141, 95, 0.16);
+}
+.zukan-cell .food-icon svg { width: 35px; height: 35px; }
+.zukan-cell.got { border-color: #ecd9b4; box-shadow: 0 4px 12px rgba(176, 141, 95, 0.18); }
+.zukan-cell .food-icon.locked { filter: grayscale(0.9); opacity: 0.38; box-shadow: none; }
+.zukan-cell:not(.got) { background: rgba(255, 253, 248, 0.6); box-shadow: none; }
+.zukan-cell:not(.got) .zukan-name { color: var(--ink-soft); }
+.zukan-name { font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.3; text-align: center; }
+.zukan-state { font-size: 10.5px; letter-spacing: 0.06em; color: var(--ink-soft); }
+.zukan-cell.got .zukan-state { color: var(--green); font-weight: 700; }
+
+/* 図鑑: レアリティ（激レア/レア）・レベル・称号 */
+.zukan-rare-progress { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.zukan-filter { margin-top: 12px; }
+.rare-chip {
+  display: inline-block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.05em;
+  padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-soft);
+  background: var(--cream); color: var(--ink-soft); vertical-align: 2px;
+}
+.rare-chip.ultra { background: linear-gradient(135deg, #fdf3d0, #f7df8e); border-color: #e3c15e; color: #8a6414; }
+.rare-chip.rare { background: #eef3e4; border-color: #c9dcab; color: #56743a; }
+.zukan-cell { position: relative; }
+.zukan-cell.tier-ultra { border: 1.5px solid #e3c15e; background: linear-gradient(180deg, #fffdf4, #fdf3d0); box-shadow: 0 4px 14px rgba(227, 193, 94, 0.35); }
+.zukan-cell.tier-ultra:not(.got) { background: linear-gradient(180deg, #fffdf4, #fbf0cd); }
+.zukan-cell.tier-rare { border-color: #b9d18f; }
+.rare-badge {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.06em; padding: 1.5px 7px;
+  border-radius: 999px; line-height: 1.5;
+}
+.rare-badge.ultra { background: linear-gradient(135deg, #f7df8e, #eec95c); color: #7a5608; border: 1px solid #d9ae3c; }
+.rare-badge.rare { background: #e4efcf; color: #56743a; border: 1px solid #b9d18f; }
+.zukan-cell .food-icon.mystery { filter: brightness(0.45) saturate(0.25) contrast(0.9); opacity: 0.75; box-shadow: none; }
+.zukan-lv { font-size: 11px; font-weight: 800; color: var(--accent-deep); letter-spacing: 0.03em; }
+.zukan-title { font-size: 10.5px; color: #8a6414; font-weight: 700; line-height: 1.35; text-align: center; }
+.zukan-next { font-size: 9.5px; color: var(--ink-soft); letter-spacing: 0.02em; }
+
+/* 買い物: おつかい向けにキャラ＋名前を大きく */
+.shop-main .food-icon { width: 34px; height: 34px; vertical-align: -10px; }
+.shop-name { font-size: 16.5px; font-weight: 800; letter-spacing: 0.02em; }
+
+/* レシピ: 消費順（期限→購入順）の見える化 */
+.fifo-chip { background: #eef3e4; border-color: #c9dcab; color: #56743a; font-weight: 700; }
+
+/* レシピ表示タブ（おすすめ／イベント献立／お気に入り）: 3つでもはみ出さないよう少し小さめ */
+.recipe-view-tabs button { font-size: 13px; padding-left: 2px; padding-right: 2px; }
+
+/* イベント献立: 行事の選択タブ（横スクロールするタブバー） */
+.event-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.event-tabs {
+  flex-wrap: nowrap; overflow-x: auto; padding: 4px 2px 8px;
+  scrollbar-width: thin; -webkit-overflow-scrolling: touch;
+}
+.event-tabs .event-chip { flex: none; white-space: nowrap; }
+.event-tabs .event-chip.active { border-width: 1.5px; }
+.event-chip {
+  min-height: 44px; padding: 9px 14px; border-radius: 999px; cursor: pointer;
+  background: var(--cream); border: 1px solid var(--line-soft); color: var(--ink-soft);
+  font-size: 14px; font-weight: 700; font-family: inherit;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+.event-chip.active { background: var(--card); color: var(--accent-deep); border-color: var(--accent); box-shadow: 0 1px 3px rgba(122, 94, 58, 0.10), 0 4px 12px rgba(122, 94, 58, 0.08); }
+.event-head .btn { margin-top: 10px; }
+.fifo-note { font-size: 11.5px; color: var(--ink-soft); margin-left: 4px; }
+
+/* 食材の知識ページ（食育） */
+.k-link { cursor: pointer; }
+.knowledge-hero { text-align: center; margin-top: 10px; }
+.knowledge-hero .food-icon {
+  width: 118px; height: 118px; margin: 4px auto 6px;
+  background: radial-gradient(circle at 32% 24%, #fffdf4 0%, #f9edd3 62%, #f4e3c3 100%);
+  border-radius: 999px; box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(176, 141, 95, 0.2);
+}
+.knowledge-hero .food-icon svg { width: 92px; height: 92px; }
+.knowledge-hero .recipe-chips { justify-content: center; margin-bottom: 12px; }
+.k-name { font-size: 24px; font-weight: 800; letter-spacing: 0.03em; margin-bottom: 8px; }
+.k-section { margin-top: 10px; }
+.k-title { font-size: 15.5px; margin: 0 0 6px; color: var(--accent-deep); }
+.k-text { font-size: 14.5px; line-height: 1.75; margin: 4px 0; }
+.quiz-q { font-weight: 700; }
+.quiz-btn { margin-top: 8px; text-align: left; }
+.quiz-btn.right { background: #e4efcf; border-color: #b9d18f; }
+.quiz-btn.wrong { opacity: 0.45; }
+.quiz-result { font-size: 14.5px; font-weight: 700; margin-top: 10px; line-height: 1.7; color: var(--ink-soft); }
+.quiz-result.correct { color: #56743a; }
+
+/* ---------- 共有・メンバー ---------- */
+.fridge-row { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px dashed var(--line-soft); }
+.fridge-row:last-child { border-bottom: none; }
+.code-box {
+  background: linear-gradient(180deg, #f7eeda, var(--cream)); border: 1.5px dashed var(--accent); border-radius: 14px;
+  padding: 16px; text-align: center; margin: 12px 0;
+}
+.code-text { font-size: 30px; font-weight: 800; letter-spacing: 0.22em; color: var(--accent-deep); }
+.qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 0 2px; }
+.qr-wrap canvas { border-radius: 14px; border: 1px solid var(--line-soft); background: #fff; max-width: 220px; height: auto; box-shadow: var(--shadow); }
+.member-row { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px dashed var(--line-soft); font-size: 14px; }
+.member-row:last-child { border-bottom: none; }
+
+/* ---------- 買い物 ---------- */
+.shop-row { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px dashed var(--line-soft); }
+.shop-row:last-child { border-bottom: none; }
+.shop-row .grow { flex: 1; font-size: 15px; }
+
+/* ---------- レシピ ---------- */
+.recipe-card { box-shadow: var(--shadow-lift); }
+.recipe-head { display: flex; align-items: flex-start; gap: 8px; }
+.recipe-head h2 { margin-bottom: 6px; }
+.recipe-chips { margin-bottom: 8px; }
+.fav-btn {
+  flex: none; width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+  border: 1.5px solid var(--line); background: #fffefa; color: #cdbb9c;
+  font-size: 23px; line-height: 1; font-family: inherit;
+  transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease;
+}
+.fav-btn:active { transform: scale(0.92); }
+.fav-btn.active { color: var(--gold); background: #fdf3d8; border-color: #ecd28e; }
+.recipe-ing { font-size: 13.5px; line-height: 1.75; }
+.recipe-ing .have { color: var(--ink); }
+.recipe-ing .missing { color: var(--red); font-weight: 700; }
+.recipe-steps { font-size: 13.5px; line-height: 1.85; color: var(--ink); padding-left: 19px; margin: 8px 0; }
+.stepper { display: flex; align-items: center; gap: 12px; }
+.stepper .num { font-size: 20px; font-weight: 800; min-width: 64px; text-align: center; letter-spacing: 0.03em; }
+
+/* ---------- 下部ナビ・トースト ---------- */
+/* 浮遊ピル型ナビ: 画面下に浮かぶ、すりガラス風のスマートなバー */
+.bottom-nav {
+  position: fixed; left: 50%; transform: translateX(-50%); z-index: 30;
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  width: min(600px, calc(100% - 24px));
+  background: rgba(255, 253, 248, 0.82);
+  border: 1px solid rgba(231, 219, 196, 0.9); border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(122, 94, 58, 0.06), 0 16px 36px rgba(122, 94, 58, 0.14);
+  backdrop-filter: blur(16px) saturate(1.25); -webkit-backdrop-filter: blur(16px) saturate(1.25);
+  display: flex; gap: 2px; padding: 5px;
+  animation: nav-in 0.35s ease both;
+}
+@keyframes nav-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.bottom-nav button {
+  flex: 1; background: none; border: none; font-family: inherit; cursor: pointer;
+  min-height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  font-size: 11.5px; letter-spacing: 0.05em; color: var(--ink-soft); padding: 5px 2px; border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.bottom-nav button .nav-icon {
+  display: block; font-size: 20px; line-height: 1.15; opacity: 0.72; filter: saturate(0.85);
+  transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+}
+.bottom-nav button:active .nav-icon { transform: scale(0.92); }
+.bottom-nav button.active {
+  color: var(--accent-deep); font-weight: 700;
+  background: linear-gradient(180deg, #f7ecd9, var(--accent-soft));
+  box-shadow: inset 0 0 0 1px rgba(217, 164, 65, 0.35), 0 2px 8px rgba(122, 94, 58, 0.10);
+}
+.bottom-nav button.active .nav-icon { opacity: 1; filter: none; transform: translateY(-1px) scale(1.07); }
+.toast {
+  position: fixed; left: 50%; bottom: 104px; transform: translateX(-50%); z-index: 50;
+  background: #5c4a35; color: #fff8ec; padding: 11px 18px; border-radius: 999px;
+  font-size: 14px; box-shadow: var(--shadow-lift); max-width: 88vw; text-align: center;
+}
+.empty { text-align: center; color: var(--ink-soft); font-size: 14px; padding: 24px 0; line-height: 1.9; }
+select.inline-select { width: auto; display: inline-block; padding: 6px 8px; font-size: 14px; }
+
+/* ---- 追加機能（ガイド／検索／クイック登録／元に戻す／法的ページ／通知） ---- */
+.toast-action {
+  margin-left: 10px; background: #fff8ec; color: #5c4a35; border: none;
+  border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.guide-card { border: 2px solid #e8b04b; }
+.guide-step { display: flex; gap: 10px; align-items: flex-start; margin: 12px 0; }
+.guide-icon { font-size: 26px; line-height: 1.2; }
+.guide-step p { margin: 2px 0 0; }
+.search-row { display: flex; align-items: center; gap: 8px; margin: 4px 0 10px; }
+.search-row input { flex: 1; }
+.search-icon { font-size: 18px; }
+.quick-box { margin-bottom: 10px; }
+.quick-label { font-size: 13px; font-weight: 700; color: var(--ink-soft); margin: 8px 0 6px; }
+.quick-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.quick-chip {
+  background: #fff; border: 1.5px solid #e5d9c5; border-radius: 999px;
+  padding: 7px 13px; font-size: 14px; cursor: pointer; color: var(--ink);
+}
+.quick-chip:active { background: #f7ecd9; }
+.quick-sub { margin-left: 6px; font-size: 11px; color: var(--ink-soft); }
+.legal-page h2 { margin-top: 12px; }
+.legal-h { margin: 20px 0 6px; font-size: 15px; }
+.legal-row { padding: 8px 0; border-bottom: 1px dashed #e5d9c5; }
+.legal-row p { margin: 2px 0 0; }
+.legal-links { text-align: center; margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
+.link-btn { background: none; border: none; color: var(--ink-soft); text-decoration: underline; cursor: pointer; font-size: 13px; padding: 2px; }
+
+/* ---- 食材クイズゲーム（学びながら遊べるゲーム） ---- */
+.game-hero .food-icon { width: 96px; height: 96px; }
+.game-hero .food-icon svg { width: 74px; height: 74px; }
+.game-hero .food-icon.game-mystery { filter: brightness(0.45) saturate(0.25) contrast(0.9); }
+.game-score { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.game-q { font-size: 17.5px; font-weight: 800; line-height: 1.75; letter-spacing: 0.02em; margin: 6px 0 4px; }
+.game-choice { text-align: left; font-size: 15.5px; }
+.game-message { font-weight: 700; font-size: 16px; }
+.game-card .quiz-result { font-size: 16px; }

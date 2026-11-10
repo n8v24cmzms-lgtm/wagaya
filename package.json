@@ -1,0 +1,1 @@
+{"description":"わが家の食材手帳（Web配布版）— 静的ホスティングにそのまま置くビルド不要の構成。package.json は Node でのテスト実行用。","name":"wagaya-shokuzai-webapp","private":true,"scripts":{"test":"node tests/demo-flow.test.mjs"},"type":"module"}
